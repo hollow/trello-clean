@@ -4,13 +4,13 @@
   "version": "1.0",
   "manifest_version": 3,
   "permissions": ["tabs", "scripting", "storage", "webNavigation"],
-  "host_permissions": ["*://trello.com/b/*"],
+  "host_permissions": ["*://trello.com/*"],
   "background": {
     "service_worker": "background.js"
   },
   "content_scripts": [
     {
-      "matches": ["https://trello.com/b/*"],
+      "matches": ["https://trello.com/*"],
       "css": ["clean.css", "collapse.css"]
     }
   ]
