@@ -1,0 +1,17 @@
+{
+  "name": "Trello Clean",
+  "description": "A Chrome extension to provide a cleaner Trello experience",
+  "version": "1.0",
+  "manifest_version": 3,
+  "permissions": ["tabs", "scripting", "storage", "webNavigation"],
+  "host_permissions": ["*://trello.com/b/*"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://trello.com/b/*"],
+      "css": ["clean.css", "collapse.css"]
+    }
+  ]
+}
