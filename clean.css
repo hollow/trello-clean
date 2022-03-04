@@ -34,8 +34,7 @@ body {
 }
 
 /* hide all card badges */
-.js-card-details > .badges > .js-badges,
-.js-card-details > .badges > .js-plugin-badges {
+.js-card-details > .badges > .js-badges {
   display: none;
 }
 
