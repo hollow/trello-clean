@@ -14,11 +14,8 @@ function cleanNode(node) {
 
     let cld = node.firstElementChild;
     if (cld.classList.contains("badge-icon")) {
-        let style = cld.getAttribute("style");
-        if (style.includes("github.trello.services")) {
-            node.remove();
-            return;
-        }
+        node.remove();
+        return;
     }
 }
 
