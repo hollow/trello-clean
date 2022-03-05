@@ -33,11 +33,6 @@ body {
   display: none;
 }
 
-/* hide all card badges */
-.js-card-details > .badges > .js-badges {
-  display: none;
-}
-
 /* display custom fields line by line */
 .custom-field-front-badges .badge {
   display: block;

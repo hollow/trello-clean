@@ -11,7 +11,8 @@
   "content_scripts": [
     {
       "matches": ["https://trello.com/*"],
-      "css": ["clean.css", "collapse.css"]
+      "css": ["clean.css", "collapse.css"],
+      "js": ["clean.js"]
     }
   ]
 }
