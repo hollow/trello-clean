@@ -1,0 +1,101 @@
+/* make all elements a bit smaller */
+body {
+  zoom: 90%;
+}
+
+/* hide text from board view drop-down button */
+.js-board-views-btn-container > div > button > span:nth-child(2) {
+  display: none;
+}
+
+/* hide all header dividers */
+.board-header-btn-divider {
+  display: none;
+}
+
+/* hide text from workspace drop-down button */
+.board-header-btn-org-name > .board-header-btn-text {
+  display: none;
+}
+
+/* hide text from board visibility drop-down button */
+.board-header-btn.perms-btn > .board-header-btn-text {
+  display: none;
+}
+
+/* hide text from board menu button */
+.board-header-btn.mod-show-menu > .board-header-btn-text {
+  display: none;
+}
+
+/* hide "Add List" button to prevent horizontal scrolling */
+#board > .js-add-list {
+  display: none;
+}
+
+/* display custom fields line by line */
+.custom-field-front-badges .badge {
+  display: block;
+}
+
+/* inspired by https://github.com/webrender/trello-collapse-lists */
+
+/* closed list */
+.js-list.collapsed {
+  transform: rotate(90deg);
+  transform-origin: top left;
+  position: relative;
+  height: 42px;
+  left: 42px;
+  width: 228px;
+  margin-right: -182px;
+}
+
+/* hide everything in a closed list... */
+.js-list.collapsed .list * {
+  display: none !important;
+}
+
+/* ...except for the title and the collapse toggle */
+.js-list.collapsed .list .list-header,
+.js-list.collapsed .list .list-header-name,
+.js-list.collapsed .list .collapse-toggle {
+  display: block !important;
+}
+
+/* we need to reduce the width of the title to fit the collapse toggle in */
+.js-list .list .list-header-name {
+  width: calc(100% - 25px);
+}
+
+.ui-draggable-dragging {
+  display: none !important;
+}
+
+/* collapse toggle button */
+.collapse-toggle {
+  float: left;
+  cursor: pointer;
+  background: white;
+  border: 1px solid #ccc;
+  border-radius: 50%;
+  height: 20px;
+  width: 20px;
+  text-align: center;
+  position: relative;
+  margin-left: 2px;
+}
+
+/* collapse toggle button - triangle */
+.collapse-toggle:after {
+  display: block;
+  content: "";
+  width: 0;
+  height: 0;
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+  border-top: 5px solid #000;
+  position: absolute;
+  top: 8px;
+  left: 5px;
+}
