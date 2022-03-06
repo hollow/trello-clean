@@ -1,5 +1,6 @@
 function onChange(changes) {
     for (let change of changes) {
+        onNodeAdd(change.target);
         for (let node of change.addedNodes) {
             onNodeAdd(node);
         }
@@ -15,10 +16,10 @@ function onNodeAdd(node) {
         onBoardAdd(node);
     } else if (node.classList?.contains("badge")) {
         onBadgeAdd(node);
-    } else {
-        for (let badge of node.querySelectorAll(".badge")) {
-            onBadgeAdd(badge);
-        }
+    }
+
+    for (let badge of node.querySelectorAll(".badge")) {
+        onBadgeAdd(badge);
     }
 }
 
@@ -27,9 +28,9 @@ function onBoardAdd(board) {
     let boardPath = boardUrl.pathname.split("/");
     let boardId = boardPath[2];
 
-    board.querySelectorAll(".js-list").forEach(list => {
+    for (let list of board.querySelectorAll(".js-list")) {
         onListAdd(list, boardId);
-    });
+    }
 }
 
 function onListAdd(list, boardId) {
@@ -61,36 +62,20 @@ function onCollapse(list, listId, isCollapsed) {
     });
 }
 
-
 var badgeBlacklist = [
-    "app.screenful.me/integrations/trello-scaled",
-    "confluence.trello.services/images/confluence-logo",
-    "github.trello.services/images/icon",
-    "github.trello.services/images/pull-request",
-    "static.kanbhala.com", // Time Tracker
+    /app\.screenful\.me\/integrations\/trello-scaled/,
+    /confluence\.trello\.services\/images\/confluence-logo/,
+    /github\.trello\.services\/images\/icon/,
+    /github\.trello\.services\/images\/pull-request/,
+    /static.kanbhala.com/, // Time Tracker
 ]
 
 function onBadgeAdd(badge) {
-    switch (badge.title) {
-        case "Attachments":
-        case "Checklist items":
-        case "Comments":
-        case "This card has a description.":
-        case "Trello attachments":
-        case "You are subscribed to this card.":
-        case "You are watching this card.":
-            badge.style.display = "none";
-            return;
-    }
-
-    let icon = badge.querySelector(".badge-icon");
-    if (icon?.style?.backgroundImage) {
-        for (let match of badgeBlacklist) {
-            if (icon?.style?.backgroundImage?.includes(match)) {
-                badge.style.display = "none";
-                return;
-            }
-        }
+    let icon = badge.querySelector('.badge-icon[style]');
+    let iconImage = icon?.style?.backgroundImage;
+    if (badgeBlacklist.some(x => x.test(iconImage))) {
+        badge.classList.add("hidden");
+        return;
     }
 }
 

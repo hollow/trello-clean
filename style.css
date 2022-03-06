@@ -33,14 +33,28 @@ body {
   display: none;
 }
 
+/* hide all icon badges */
+.js-badges .badge,
+.js-plugin-badges .hidden {
+  display: none;
+}
+
+/* except due date */
+.js-due-date-badge {
+  display: inline-block !important;
+}
+
 /* display custom fields line by line */
 .custom-field-front-badges .badge {
   display: block;
 }
 
-/* inspired by https://github.com/webrender/trello-collapse-lists */
+/* display card members below badges */
+.badges {
+  float: none !important;
+}
 
-/* closed list */
+/* inspired by https://github.com/webrender/trello-collapse-lists */
 .js-list.collapsed {
   transform: rotate(90deg);
   transform-origin: top left;
