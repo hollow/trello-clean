@@ -1,6 +1,20 @@
+var observer;
+
+function observe(node) {
+    if (observer) {
+        observer.disconnect();
+    }
+
+    observer = new MutationObserver(onChange);
+    observer.observe(node, {
+        childList: true,
+        subtree: true
+    });
+}
+
 function onChange(changes) {
     for (let change of changes) {
-        onNodeAdd(change.target);
+        // onNodeAdd(change.target);
         for (let node of change.addedNodes) {
             onNodeAdd(node);
         }
@@ -9,17 +23,16 @@ function onChange(changes) {
 
 function onNodeAdd(node) {
     if (node.nodeType != Node.ELEMENT_NODE) {
-        return;
-    }
-
-    if (node.classList?.contains("board-wrapper")) {
+        // do nothing
+    } else if (node.nodeName === "svg") {
+        // do nothing
+    } else if (node.classList?.contains("board-wrapper")) {
+        observe(node.parentNode);
         onBoardAdd(node);
+    } else if (node.classList?.contains("list-card-details")) {
+        onCardAdd(node);
     } else if (node.classList?.contains("badge")) {
         onBadgeAdd(node);
-    }
-
-    for (let badge of node.querySelectorAll(".badge")) {
-        onBadgeAdd(badge);
     }
 }
 
@@ -62,7 +75,14 @@ function onCollapse(list, listId, isCollapsed) {
     });
 }
 
-var badgeBlacklist = [
+function onCardAdd(card) {
+    let badges = card.querySelectorAll(".js-plugin-badges .badge");
+    for (let badge of badges) {
+        onBadgeAdd(badge);
+    }
+}
+
+var iconBlacklist = [
     /app\.screenful\.me\/integrations\/trello-scaled/,
     /confluence\.trello\.services\/images\/confluence-logo/,
     /github\.trello\.services\/images\/icon/,
@@ -73,13 +93,9 @@ var badgeBlacklist = [
 function onBadgeAdd(badge) {
     let icon = badge.querySelector('.badge-icon[style]');
     let iconImage = icon?.style?.backgroundImage;
-    if (badgeBlacklist.some(x => x.test(iconImage))) {
+    if (iconImage && iconBlacklist.some(x => x.test(iconImage))) {
         badge.classList.add("hidden");
-        return;
     }
 }
 
-new MutationObserver(onChange).observe(document, {
-    childList: true,
-    subtree: true
-});
+observe(document);
