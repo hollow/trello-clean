@@ -29,10 +29,14 @@ function onNodeAdd(node) {
     } else if (node.classList?.contains("board-wrapper")) {
         observe(node.parentNode);
         onBoardAdd(node);
-    } else if (node.classList?.contains("list-card-details")) {
-        onCardAdd(node);
     } else if (node.classList?.contains("badge")) {
         onBadgeAdd(node);
+    } else if (node.classList?.contains("list-card-details")) {
+        addBadges(node);
+    } else if (node.nodeName === "SPAN") {
+        addBadges(node);
+    } else {
+        // console.dirxml(node);
     }
 }
 
@@ -42,11 +46,11 @@ function onBoardAdd(board) {
     let boardId = boardPath[2];
 
     for (let list of board.querySelectorAll(".js-list")) {
-        onListAdd(list, boardId);
+        addCollapse(list, boardId);
     }
 }
 
-function onListAdd(list, boardId) {
+function addCollapse(list, boardId) {
     let listHeaderName = list.querySelector(".list-header-name");
     let listId = boardId + ":" + encodeURI(listHeaderName.textContent);
 
@@ -75,13 +79,6 @@ function onCollapse(list, listId, isCollapsed) {
     });
 }
 
-function onCardAdd(card) {
-    let badges = card.querySelectorAll(".js-plugin-badges .badge");
-    for (let badge of badges) {
-        onBadgeAdd(badge);
-    }
-}
-
 var iconBlacklist = [
     /app\.screenful\.me\/integrations\/trello-scaled/,
     /confluence\.trello\.services\/images\/confluence-logo/,
@@ -95,6 +92,12 @@ function onBadgeAdd(badge) {
     let iconImage = icon?.style?.backgroundImage;
     if (iconImage && iconBlacklist.some(x => x.test(iconImage))) {
         badge.classList.add("hidden");
+    }
+}
+
+function addBadges(node) {
+    for (let badge of node.querySelectorAll(".badge")) {
+        onBadgeAdd(badge);
     }
 }
 
