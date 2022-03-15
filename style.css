@@ -28,6 +28,10 @@ body {
   display: none;
 }
 
+.js-board-header-subscribed {
+  display: none;
+}
+
 /* hide "Add List" button to prevent horizontal scrolling */
 #board > .js-add-list {
   display: none;
@@ -40,6 +44,10 @@ body {
 }
 
 /* except due date */
+.js-badges {
+  display: block;
+}
+
 .js-due-date-badge {
   display: inline-block !important;
 }
@@ -47,11 +55,6 @@ body {
 /* display custom fields line by line */
 .custom-field-front-badges .badge {
   display: block;
-}
-
-/* display card members below badges */
-.badges {
-  float: none !important;
 }
 
 /* inspired by https://github.com/webrender/trello-collapse-lists */

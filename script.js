@@ -36,7 +36,7 @@ function onNodeAdd(node) {
     } else if (node.nodeName === "SPAN") {
         addBadges(node);
     } else {
-        // console.dirxml(node);
+        addBadges(node);
     }
 }
 
