@@ -37,24 +37,28 @@ body {
   display: none;
 }
 
+/* try to display labels and members side-by-side */
+.badges {
+  max-width: 75% !important;
+}
+
+.list-card-members {
+  float: none !important;
+}
+
 /* hide all icon badges */
 .js-badges .badge,
 .js-plugin-badges .hidden {
   display: none;
 }
 
-/* except due date */
-.js-badges {
-  display: block;
-}
-
-.js-due-date-badge {
-  display: inline-block !important;
-}
-
 /* display custom fields line by line */
-.custom-field-front-badges .badge {
+.custom-field-front-badges {
   display: block;
+}
+
+.custom-field-front-badges .badge {
+  min-width: 51%;
 }
 
 /* inspired by https://github.com/webrender/trello-collapse-lists */
